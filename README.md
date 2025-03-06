@@ -1,4 +1,4 @@
-# ocr-audio
+# Clase 6
 # Aplicación de OCR, Traducción y Text-to-Speech
 
 Esta aplicación web combina reconocimiento óptico de caracteres (OCR), traducción y conversión de texto a voz. Permite a los usuarios capturar texto de imágenes, traducirlo a varios idiomas y convertirlo en audio, todo desde una interfaz web intuitiva construida con Streamlit.
