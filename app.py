@@ -1,13 +1,16 @@
 import os
 import streamlit as st
 from bokeh.models.widgets import Button
-#from bokeh.io import show
-#from bokeh.models import Button
 from bokeh.models import CustomJS
 from streamlit_bokeh_events import streamlit_bokeh_events
 from PIL import Image
 import time
 import glob
+import cv2
+import numpy as np
+import pytesseract
+
+
 
 
 
@@ -175,3 +178,27 @@ if result:
                     print("Deleted ", f)
 
     remove_files(7)
+
+
+st.title("Reconocimiento óptico de Caracteres")
+
+img_file_buffer = st.camera_input("Toma una Foto")
+
+with st.sidebar:
+      filtro = st.radio("Aplicar Filtro",('Con Filtro', 'Sin Filtro'))
+
+
+if img_file_buffer is not None:
+    # To read image file buffer with OpenCV:
+    bytes_data = img_file_buffer.getvalue()
+    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+    
+    if filtro == 'Con Filtro':
+         cv2_img=cv2.bitwise_not(cv2_img)
+    else:
+         cv2_img= cv2_img
+    
+        
+    img_rgb = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2RGB)
+    text=pytesseract.image_to_string(img_rgb)
+    st.write(text) 
