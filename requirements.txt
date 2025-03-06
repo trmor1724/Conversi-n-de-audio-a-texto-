@@ -1,17 +1,7 @@
-#streamlit==0.80.0
 streamlit
 gTTS==2.2.2
 googletrans==3.1.0a0
-streamlit-webrtc
-numpy
-opencv-python-headless
-pytesseract
-Pillow
-streamlit-webrtc
-numpy
-opencv-python-headless
-pytesseract
-Pillow
+
 Jinja2 >=2.9
 contourpy >=1
 numpy==1.26.3
