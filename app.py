@@ -242,12 +242,7 @@ st.title("Reconocimiento Óptico de Caracteres")
 st.subheader("Elige la fuente de la imágen, esta puede venir de la cámara o cargando un archivo")
 
 cam_ = st.checkbox("Usar Cámara")
-
-if cam_ :
-   img_file_buffer = st.camera_input("Toma una Foto")
-else :
-   img_file_buffer = None
-   
+  
 with st.sidebar:
       st.subheader("Procesamiento para Cámara")
       filtro = st.radio("Filtro para imagen con cámara",('Sí', 'No'))
