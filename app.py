@@ -235,6 +235,35 @@ def remove_files(n):
 
 remove_files(7)
   
+text=" "
+
+def text_to_speech(input_language, output_language, text, tld):
+    translation = translator.translate(text, src=input_language, dest=output_language)
+    trans_text = translation.text
+    tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
+    try:
+        my_file_name = text[0:20]
+    except:
+        my_file_name = "audio"
+    tts.save(f"temp/{my_file_name}.mp3")
+    return my_file_name, trans_text
+
+
+
+
+def remove_files(n):
+    mp3_files = glob.glob("temp/*mp3")
+    if len(mp3_files) != 0:
+        now = time.time()
+        n_days = n * 86400
+        for f in mp3_files:
+            if os.stat(f).st_mtime < now - n_days:
+                os.remove(f)
+                print("Deleted ", f)
+
+
+remove_files(7)
+  
 
 
 
@@ -243,15 +272,11 @@ st.subheader("Elige la fuente de la imágen, esta puede venir de la cámara o ca
 
 cam_ = st.checkbox("Usar Cámara")
 
-if "foto_capturada" not in st.session_state:
-    st.session_state.foto_capturada = False
-
-if not st.session_state.foto_capturada:
-    img_file_buffer = st.camera_input("Toma una Foto")
-    if img_file_buffer is not None:
-        st.session_state.foto_capturada = True
-
-  
+if cam_ :
+   img_file_buffer = st.camera_input("Toma una Foto")
+else :
+   img_file_buffer = None
+   
 with st.sidebar:
       st.subheader("Procesamiento para Cámara")
       filtro = st.radio("Filtro para imagen con cámara",('Sí', 'No'))
@@ -377,3 +402,6 @@ with st.sidebar:
           if display_output_text:
               st.markdown(f"## Texto de salida:")
               st.write(f" {output_text}")
+
+
+
